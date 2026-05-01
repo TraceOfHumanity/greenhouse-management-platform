@@ -1,0 +1,17 @@
+apiVersion: skaffold/v4beta11
+kind: Config
+manifests:
+  rawYaml:
+    - ./infrastructure/kubernetes/*
+build:
+  local:
+    push: false
+  artifacts:
+    - image: math/auth
+      context: auth
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: 'src/**/*.ts'
+            dest: /app/src
